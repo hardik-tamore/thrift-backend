@@ -1,0 +1,156 @@
+
+$primary : #5938c8;
+$secondary : #00c0fb;
+$ternary : hsl(222, 85%, 18%);
+$bg-gray : #b4c4d6; 
+$bg-white : #f1f6fa;
+*{
+  margin: 0;
+}
+body{
+  background: $bg-white;
+}
+.form{
+  // background-color: lime;
+  // background: $bg-white;
+  margin: auto;
+  width: 50%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px;
+ h3{
+   color: $ternary;
+ }
+ .button-primary{
+background-color: $primary;
+color: $bg-white;
+height: 40px;
+width: 80%;
+margin: auto;
+}
+  .input-group{
+    // background: white;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    .input-control{
+      margin: 8px;
+
+     
+    }
+  }
+  .product-image-container{
+    width: 200px;
+
+    margin: auto;
+    img{
+     width: 200px; /* or any custom size */
+     height: 200px; 
+     object-fit:cover ;
+     border-radius: 8px;
+    }
+  }
+  
+}
+
+
+.product-container{
+  display: flex;
+  flex-wrap: wrap;
+  // justify-content: space-evenly;
+  width: 50%;
+  margin: auto;
+  border: 1px solid gray;
+  justify-content: flex-start;
+
+  .card{
+    margin: 10px;
+    border-radius: 5px;
+    box-shadow:1px  1px 6px #d8d8d8;
+    width: 162px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+   .card-btn-container{
+     padding: 10px;
+     display: flex;
+     justify-content: center;
+    
+
+    .card-btn{
+      background-color: $primary;
+      color: $bg-white;
+      height: 40px;
+
+
+      }
+   }
+   
+    img{
+      width: 120px; /* or any custom size */
+      height: 120px; 
+      object-fit:cover ;
+      border-radius: 4px;
+      margin-top: 10px;
+     }
+     .card-info{
+       display: flex;
+       flex-direction: column;
+      //  background:lime;
+       justify-content: center;
+       width: 90%;
+       h5{
+         margin: 0;
+         color: $ternary;
+       }
+
+       .card-info-desc{
+        padding: 5px 0 ;
+      // background:red;
+      justify-content: center;
+      display: flex;
+      justify-content: space-between  ;
+      font-size: 25px;
+
+       }
+     }
+  }
+}
+
+#copy-btn{
+  position: absolute;
+  z-index: 1;
+  top: 5px;
+  right: 5px;
+  color: lightblue;
+}
+
+
+@media screen and (max-width: 450px) {
+
+  .form{
+    // background-color: blue;
+    margin: auto;
+    width: 100%;
+  
+  }
+
+  .product-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 98%;
+    .card{
+      margin: 1%;   
+      width: 48%;
+     
+    }
+  }
+
+}
