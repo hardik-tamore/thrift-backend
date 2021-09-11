@@ -49,7 +49,7 @@ function Container(props) {
                    "\nComment 'Book' to buy " 
  
             return (
-              <Card title={item.Name} price={item.Price} size={item.size} copy_text={text} id={item._id} photo ={item.photo}/>
+              <Card title={item.Name} price={item.Price} size={item.Size} copy_text={text} id={item._id} photo ={item.photo}/>
                
   //               <div class="col-sm-2">
   // <div class="card text-left" style={{width: 250, height: 170 }}>
