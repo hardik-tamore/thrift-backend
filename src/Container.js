@@ -44,7 +44,7 @@ function Container(props) {
 
     if (keyword !== "") {
       const results = product_array.filter((product) => {
-        return product.Name.toLowerCase().startsWith(keyword.toLowerCase());
+        return product.Name.toLowerCase().includes(keyword.toLowerCase());
         // Use the toLowerCase() method to make it case-insensitive
       });
       setFoundProducts(results);
