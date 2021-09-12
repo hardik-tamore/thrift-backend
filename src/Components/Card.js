@@ -29,7 +29,7 @@ function Card({title, size, price, id, copy_text, photo, status}) {
       <div className="card-info">
         <h5>{title+' ('+size+')'}</h5>
         <div className ='card-info-desc'>
-        <h6>{price}</h6>
+        <h6>₹{price}</h6>
    
        
         </div>

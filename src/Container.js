@@ -74,6 +74,7 @@ function Container(props) {
             const condition_desc = `(${item.Condition_desc})`;
             let text =
               item.Name +
+              "\n"+
               "\nPrice : INR " +
               item.Price +
               "/- (FREE SHIPPING)" +
