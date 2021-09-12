@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
 import MuiAlert from "@material-ui/lab/Alert";
+import * as Constants from '../Constants';
+
 
 import { Button, InputAdornment, MenuItem, Snackbar } from "@material-ui/core";
 import tshirt from "../Assets/tshirt.png";
@@ -11,12 +13,12 @@ function ProductDetails() {
   const [displayImage, setDisplayImage] = useState(tshirt);
   const [newProduct, setNewProduct] = useState({
     productName: "",
-    cost: 0,
-    price: 0,
+    cost: null,
+    price: null,
     size: "L",
-    chest: 0,
-    length: 0,
-    shoulder: 0,
+    chest: null,
+    length: null,
+    shoulder: null,
     condition: 10,
     condition_desc: "",
     photo: tshirt,
@@ -57,7 +59,7 @@ function ProductDetails() {
     formData.append("Condition_desc", newProduct.condition_desc);
 
     axios
-      .post("https://cryptic-lowlands-74955.herokuapp.com/product/add/", formData, {
+      .post(`${Constants.URL}/product/add/`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -67,12 +69,12 @@ function ProductDetails() {
         setDisplayImage(tshirt);
         setNewProduct({
           productName: "",
-          cost: 0,
-          price: 0,
+          cost: null,
+          price: null,
           size: "L",
-          chest: 0,
-          length: 0,
-          shoulder: 0,
+          chest: null,
+          length: null,
+          shoulder: null,
           condition: 10,
           condition_desc: "",
           photo: tshirt,
@@ -100,9 +102,7 @@ function ProductDetails() {
           This is a success message!
         </Alert>
       </Snackbar>
-      <center>
-        <h3>Product Details</h3>{" "}
-      </center>
+
       <div className="input-group ">
         <div className="product-image-container">
           <label htmlFor="upload-button">
@@ -143,6 +143,7 @@ function ProductDetails() {
       </div>
       <div className="input-group ">
         <TextField
+        required
           name="size"
           select
           label="Size"
@@ -159,6 +160,7 @@ function ProductDetails() {
           ))}
         </TextField>
         <TextField
+        required
           label="Chest"
           className="input-control"
           name="chest"
@@ -172,6 +174,7 @@ function ProductDetails() {
           value={newProduct.chest}
         />
         <TextField
+        required
           label="Length"
           className="input-control"
           name="length"
@@ -200,6 +203,7 @@ function ProductDetails() {
       </div>
       <div className="input-group ">
         <TextField
+        required
           style={{ flex: 2 }}
           name="cost"
           type="number"
@@ -214,6 +218,7 @@ function ProductDetails() {
         />
 
         <TextField
+        required
           style={{ flex: 2 }}
           type="number"
           className="input-control"
@@ -229,6 +234,7 @@ function ProductDetails() {
       </div>
       <div className="input-group ">
         <TextField
+        required
           name="condition"
           select
           label="Condition"
@@ -248,7 +254,6 @@ function ProductDetails() {
         <TextField
           style={{ flex: 8 }}
           className="input-control"
-          required
           name="condition_desc"
           InputLabelProps={{
             shrink: true,

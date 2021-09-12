@@ -2,13 +2,29 @@ import { Button } from "@material-ui/core";
 import React from "react";
 import tshirt from "../Assets/varsity.JPG";
 import FileCopyIcon from '@material-ui/icons/FileCopy';
+import * as Constants from '../Constants';
+import axios from "axios";
 
-function Card({title, size, price, id, copy_text, photo}) {
+const remove=(id)=>{
+  axios.patch(`${Constants.URL}/product/${id}`, {
+Status: 'Sold'
+})
+.then(response => {
+console.log(response);
+})
+.catch(err => {
+console.log(err);
+});
+}
+
+function Card({title, size, price, id, copy_text, photo, status}) {
   return (
     <div className="card">
+      {status=='Sold'? <div className='card-status'><span>SOLD</span></div>:<></>}
+     
       <div className="card-image">
           <FileCopyIcon id = 'copy-btn' onClick={() => {navigator.clipboard.writeText(copy_text)}} />
-        <img src={`https://cryptic-lowlands-74955.herokuapp.com/uploads/${photo}`} />
+        <img src={`${Constants.URL}/uploads/${photo}`} />
       </div>
       <div className="card-info">
         <h5>{title+' ('+size+')'}</h5>
@@ -19,7 +35,7 @@ function Card({title, size, price, id, copy_text, photo}) {
         </div>
       </div>
       <div className="card-btn-container">
-        <Button className='card-btn'>SELL</Button>
+        <Button className='card-btn' onClick={()=>{remove(id)}}>SELL</Button>
       </div>
     </div>
   );
