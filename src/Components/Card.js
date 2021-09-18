@@ -24,7 +24,7 @@ function Card({title, size, price, id, copy_text, photo, status}) {
      
       <div className="card-image">
           <FileCopyIcon id = 'copy-btn' onClick={() => {navigator.clipboard.writeText(copy_text)}} />
-        <img src={photo} />
+        <img src={`${URL}/uploads/${photo}`} />
       </div>
       <div className="card-info">
         <h5>{title+' ('+size+')'}</h5>
@@ -42,3 +42,5 @@ function Card({title, size, price, id, copy_text, photo, status}) {
 }
 
 export default Card;
+
+
