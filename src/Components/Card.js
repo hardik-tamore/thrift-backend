@@ -4,6 +4,7 @@ import tshirt from "../Assets/varsity.JPG";
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import * as Constants from '../Constants';
 import axios from "axios";
+import { URL } from "../Constants";
 
 const remove=(id)=>{
   axios.patch(`${Constants.URL}/product/${id}`, {
