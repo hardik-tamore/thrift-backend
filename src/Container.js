@@ -3,6 +3,7 @@ import axios from "axios";
 import Card from "./Components/Card";
 import * as Constants from "./Constants";
 import TextField from "@material-ui/core/TextField";
+import { Switch } from "@material-ui/core";
 
 function Container(props) {
   const [product_array, setProductArray] = useState([]);
@@ -72,12 +73,42 @@ function Container(props) {
         {foundProducts && foundProducts.length > 0 ? (
           foundProducts.map((item) => {
             const condition_desc = `(${item.Condition_desc})`;
+            let actual_size ;
+         
+            if(38<item.Chest <=40 ){
+              actual_size = "S"
+            }
+            else  if(40<item.Chest <=42 ){
+              actual_size = "M"
+            }
+            else  if(42<item.Chest <=44 ){
+              actual_size = "L"
+            }
+            else  if(44<item.Chest <=46 ){
+              actual_size = "XL"
+            }
+            else  if(46<item.Chest <=48 ){
+              actual_size = "2XL"
+            }
+            else  if(48<item.Chest <=50 ){
+              actual_size = "3XL"
+            }
+            else{
+              actual_size = null;
+            }
+            let size = item.Size;
+            if(actual_size && actual_size!== item.Size ){
+              size = actual_size+"("+item.size+" Mentioned)"
+            }
             let text =
               item.Name +
               "\n"+
               "\nPrice : INR " +
               item.Price +
+             
               "/- (FREE SHIPPING)" +
+              "\nSize :"+
+              size +
               "\nCondition : " +
               item.Condition +
               "/10" +
