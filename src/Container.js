@@ -72,7 +72,7 @@ function Container(props) {
       <div className="product-container">
         {foundProducts && foundProducts.length > 0 ? (
           foundProducts.map((item) => {
-            const condition_desc = `(${item.Condition_desc})`;
+            const condition_desc = condition_desc?`(${item.Condition_desc})`:''
             let actual_size ;
          
             if(38<item.Chest <=40 ){
@@ -143,3 +143,4 @@ function Container(props) {
 }
 
 export default Container;
+
