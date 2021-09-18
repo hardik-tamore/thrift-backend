@@ -98,7 +98,7 @@ function Container(props) {
             }
             let size = item.Size;
             if(actual_size && actual_size!== item.Size ){
-              size = actual_size+"("+item.size+" Mentioned)"
+              size = actual_size+"("+item.Size+" Mentioned)"
             }
             let text =
               item.Name +
