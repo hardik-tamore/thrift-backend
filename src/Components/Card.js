@@ -5,6 +5,7 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import * as Constants from '../Constants';
 import axios from "axios";
 import { URL } from "../Constants";
+import { Link } from 'react-router-dom';
 
 const remove=(id)=>{
   axios.patch(`${Constants.URL}/product/${id}`, {
@@ -36,7 +37,7 @@ function Card({title, size, price, id, copy_text, photo, status}) {
         </div>
       </div>
       <div className="card-btn-container">
-        <Button className='card-btn' onClick={()=>{remove(id)}}>SELL</Button>
+        <Link className='card-btn' to={`/products/user/${id}`}>SELL</Link>
       </div>
     </div>
   );

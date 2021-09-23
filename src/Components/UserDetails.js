@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
-import * as Constants from '../Constants';
-
+import * as Constants from "../Constants";
+import { useParams } from "react-router";
 
 import { Button, InputAdornment, MenuItem, Snackbar } from "@material-ui/core";
 import tshirt from "../Assets/tshirt.png";
@@ -11,68 +11,70 @@ function UserDetails() {
   const [openSuccess, setOpenSuccess] = React.useState(false);
   const [displayImage, setDisplayImage] = useState(tshirt);
 
+  const { id } = useParams();
+
   const [user, setUser] = useState({
     name: "",
     username: "",
+    sellingPrice : 0,
     address: "",
-    pincode: null,
-    phone: null,
-    email: "null",
-    paymentMode : ""
+    address_2: "",
+    pincode: 0,
+    phone: 0,
+    email: "",
+    paymentMode: "",
   });
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
- 
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append("name", user.name);
+      formData.append("email", user.email);
+      formData.append("phone", user.phone);
+      formData.append("username", user.username);
+      formData.append("pincode", user.pincode);
+      formData.append("sellingPrice", user.sellingPrice);
+      formData.append("paymentmode", user.paymentMode);
+      formData.append("address", user.address);
 
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     const formData = new FormData();
-//     formData.append("photo", newProduct.photo);
-//     formData.append("Name", newProduct.productName);
-//     formData.append("Size", newProduct.size);
-//     formData.append("Chest", newProduct.chest);
-//     formData.append("Shoulder", newProduct.shoulder);
-//     formData.append("Length", newProduct.length);
-//     formData.append("Cost", newProduct.cost);
-//     formData.append("Price", newProduct.price);
-//     formData.append("Condition", newProduct.condition);
-//     formData.append("Condition_desc", newProduct.condition_desc);
+     
 
-//     axios
-//       .post(`${Constants.URL}/product/add/`, formData, {
-//         headers: {
-//           "Content-Type": "multipart/form-data",
-//         },
-//       })
-//       .then((res) => {
-//         console.log(res);
-//         setDisplayImage(tshirt);
-//         setNewProduct({
-//           productName: "",
-//           cost: null,
-//           price: null,
-//           size: "L",
-//           chest: null,
-//           length: null,
-//           shoulder: null,
-//           condition: 10,
-//           condition_desc: "",
-//           photo: tshirt,
-//         })
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         // handleClick()
-//       });
-//   };
+      axios
+        .patch(`${Constants.URL}/product/user/${id}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          // setDisplayImage(tshirt);
+          // setNewProduct({
+          //   productName: "",
+          //   cost: null,
+          //   price: null,
+          //   size: "L",
+          //   chest: null,
+          //   length: null,
+          //   shoulder: null,
+          //   condition: 10,
+          //   condition_desc: "",
+          //   photo: tshirt,
+          // })
+        })
+        .catch((err) => {
+          console.log(err);
+          // handleClick()
+        });
+    };
 
   return (
     <form
       className="form"
-    //   onSubmit={handleSubmit}
+      //   onSubmit={handleSubmit}
       encType="multipart/form-data"
     >
       {/* {" "}
@@ -86,18 +88,11 @@ function UserDetails() {
         </Alert>
       </Snackbar> */}
 
-      <div className="input-group ">
-        <div className="product-image-container">
-          <label htmlFor="upload-button">
-            <img src={displayImage} alt="tshirt" />
-          </label>
-          
-        </div>
-      </div>
-      <div className="input-group ">
+      <div className="input-group">
         <TextField
           className="input-control"
           required
+          style={{ flex: 1 }}
           name="name"
           label="Name"
           InputLabelProps={{
@@ -108,22 +103,26 @@ function UserDetails() {
           value={user.name}
         />
       </div>
-      <div className="input-group ">
+      <div className="input-group">
         <TextField
           className="input-control"
-          required
-          name="username"
-          label="Username"
+          type="email"
+          style={{ flex: 1 }}
+          name="email"
+          label="Email"
           InputLabelProps={{
             shrink: true,
           }}
           variant="outlined"
           onChange={handleChange}
-          value={user.username}
+          value={user.email}
         />
-            <TextField
+      </div>
+      <div className="input-group">
+        <TextField
           className="input-control"
-          type='tel'
+          style={{ flex: 5 }}
+          type="tel"
           required
           name="phone"
           label="Phone"
@@ -134,12 +133,75 @@ function UserDetails() {
           onChange={handleChange}
           value={user.phone}
         />
+         <TextField
+          className="input-control"
+          style={{ flex: 3 }}
+          name="username"
+          label="Username"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
+          onChange={handleChange}
+          value={user.username}
+        />
+      </div>
+      
+      <div className="input-group ">
+        <TextField
+          required
+          name="paymentmode"
+          select
+          label="Payment Mode"
+          onChange={handleChange}
+          value={user.paymentmode}
+          style={{ flex: 3 }}
+          variant="outlined"
+          className="input-control"
+        >
+          {["GPay", "Paytm", "PhonePe", "Bank Transfer"].map((option) => (
+            <MenuItem key={option} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField
+          className="input-control"
+          style={{ flex: 2}}
+          required
+          name="sellingPrice"
+          label="Price"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
+          onChange={handleChange}
+          value={user.sellingPrice}
+        />
+      </div>
+      <div className="input-group ">
+       
+        <TextField
+          className="input-control"
+          style={{ flex: 1 }}
+          type="number"
+          required
+          name="pincode"
+          label="Pincode"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
+          onChange={handleChange}
+          value={user.pincode}
+        />
       </div>
 
       <div className="input-group ">
         <TextField
           multiline
           rows={4}
+          style={{ flex: 1 }}
           className="input-control"
           required
           name="address"
@@ -152,8 +214,7 @@ function UserDetails() {
           value={user.address}
         />
       </div>
-     
-      
+
       <div className="input-group ">
         <Button type="submit" variant="contained" className="button-primary">
           Save
