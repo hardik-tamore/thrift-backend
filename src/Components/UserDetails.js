@@ -6,6 +6,7 @@ import { useParams } from "react-router";
 
 import { Button, InputAdornment, MenuItem, Snackbar } from "@material-ui/core";
 import tshirt from "../Assets/tshirt.png";
+import { URL } from "../Constants";
 
 function UserDetails() {
   const [openSuccess, setOpenSuccess] = React.useState(false);
@@ -29,8 +30,11 @@ function UserDetails() {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-    const handleSubmit = (e) => {
+    const updateCustomerInfo = (e) => {
+    //  console.log("in update")
+      
       e.preventDefault();
+      
       const formData = new FormData();
       formData.append("name", user.name);
       formData.append("email", user.email);
@@ -40,41 +44,41 @@ function UserDetails() {
       formData.append("sellingPrice", user.sellingPrice);
       formData.append("paymentmode", user.paymentMode);
       formData.append("address", user.address);
-
+     // console.log( user.name)
      
 
-      axios
-        .patch(`${Constants.URL}/product/user/${id}`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          // setDisplayImage(tshirt);
-          // setNewProduct({
-          //   productName: "",
-          //   cost: null,
-          //   price: null,
-          //   size: "L",
-          //   chest: null,
-          //   length: null,
-          //   shoulder: null,
-          //   condition: 10,
-          //   condition_desc: "",
-          //   photo: tshirt,
-          // })
-        })
-        .catch((err) => {
-          console.log(err);
-          // handleClick()
-        });
+      // axios
+      //   .patch(`${URL}/product/user/${id}`, formData, {
+      //     headers: {
+      //       "Content-Type": "multipart/form-data",
+      //     },
+      //   })
+      //   .then((res) => {
+      //     console.log(res);
+      //     // setDisplayImage(tshirt);
+      //     // setNewProduct({
+      //     //   productName: "",
+      //     //   cost: null,
+      //     //   price: null,
+      //     //   size: "L",
+      //     //   chest: null,
+      //     //   length: null,
+      //     //   shoulder: null,
+      //     //   condition: 10,
+      //     //   condition_desc: "",
+      //     //   photo: tshirt,
+      //     // })
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //     // handleClick()
+      //   });
     };
 
   return (
     <form
       className="form"
-      //   onSubmit={handleSubmit}
+       onSubmit={updateCustomerInfo}
       encType="multipart/form-data"
     >
       {/* {" "}
@@ -150,11 +154,11 @@ function UserDetails() {
       <div className="input-group ">
         <TextField
           required
-          name="paymentmode"
+          name="paymentMode"
           select
           label="Payment Mode"
           onChange={handleChange}
-          value={user.paymentmode}
+          value={user.paymentMode}
           style={{ flex: 3 }}
           variant="outlined"
           className="input-control"
@@ -217,7 +221,7 @@ function UserDetails() {
 
       <div className="input-group ">
         <Button type="submit" variant="contained" className="button-primary">
-          Save
+          update
         </Button>
       </div>
     </form>
